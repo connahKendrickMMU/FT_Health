@@ -92,7 +92,25 @@ if(UnArmouredMaterial)
 ### Pointers and materials
 In Unreal certian type have to be pointers (uses the * symbol), mainly for us any thing begining with a U e.g. UMaterial, UStaticMesh.
 
-Remember our BasicFoe has a body Static Mesh Component that we can access to change the material.
+Remember our BasicFoe has a body Static Mesh Component that we can access to change the material. You will have to create a form of comunication between the Armoured Health and the Armoured Foe to change the material when the armour is broken, you could try a few different ways. Personally, opening up a new delegate that is exclusively for armour breaking, would be more flexible. As then you could restore the Armour and break it later on again.
+
+Ether way you will need to add a function to the Armoured Foe that will change the material of the body mesh to the unarmoured material when called, you must first do this in the header file:
+```
+// function to change material when armour is broken
+UFUNCTION()
+void ArmourBroken();
+```
+Then implement the function in the CPP file:
+```
+void AArmouredFoe::ArmourBroken()
+{
+	if (UnArmouredMaterial)
+	{
+		Body->SetMaterial(0, UnArmouredMaterial);
+	}
+}
+```
+
 
 ## Challenges
 Test your might
